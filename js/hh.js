@@ -119,33 +119,74 @@ $(function () {
         }
     })
     //内容banner
-    // let text1=$(".content ul .con-li1 dl");
-    // let l=$(".con-li1 .dot .page1");
-    // console.log(l,text1);
-    // console.log(text1);
-    // let n2=0;
-    // let n3=0;
-    // $(".con-li1 .left").click(function(){
-    //     n2--;
-    //     if (n2<0){
-    //         n2=0;
-    //     }else{
-    //         text1.eq(n2).css("left","291.5px");
-    //         text1.eq(n3).css("left","0");
-    //         l.removeClass("active").eq(n2).addClass("active");
-    //     }
-    //
-    // })
-    // $(".con-li1 .right").click(function(){
-    //     n2++;
-    //     if (n2==3){
-    //         n2=2;
-    //     }else{
-    //         text1.css("left","0");
-    //         l.removeClass("active").eq(n2).addClass("active");
-    //     }
-    //
-    // })
+    let text1=$(".content ul .con-li1 dl");
+    let l=$(".con-li1 .dot .page1");
+    let lefts=$(".con-li1 .left");
+    let rights=$(".con-li1 .right");
+    console.log(l,text1);
+    console.log(text1);
+    fn(text1,l,lefts,rights);
+    fn($(".content ul .con-li3 dl"),$(".con-li3 .dot .page1"),$(".con-li3 .left"),$(".con-li3 .right"))
+    fn($(".content ul .con-li4 dl"),$(".con-li4 .dot .page1"),$(".con-li4 .left"),$(".con-li4 .right"))
+
+    fn($(".content ul .con-li2 dl"),$(".con-li2 .dot .page1"),$(".con-li2 .left"),$(".con-li2 .right"))
+    function fn(text1,l,lefts,rights) {
+        let n2=0;
+        let n3=0;
+        l.eq(0).addClass("active");
+        text1.eq(0).css("left","0");
+        lefts.click(function(){
+            n3--;
+            if (n3==-1){
+                n3=0;
+            }else{
+                text1.eq(n2).animate({left:`291.5px`});
+                text1.eq(n3).css("left","-291.5px");
+                text1.eq(n3).animate({left:`0`});
+                l.eq(n2).removeClass("active");
+                l.eq(n3).addClass("active")
+                n2=n3;
+            }
+
+
+        })
+            rights.click(function(){
+            n3++;
+            if (n3>=3){
+                n3=2;
+            }else{
+                text1.eq(n2).animate({left:`-291.5px`});
+                text1.eq(n3).css("left","291.5px");
+                text1.eq(n3).animate({left:`0`})
+                l.eq(n2).removeClass("active");
+                l.eq(n3).addClass("active")
+                n2=n3;
+            }
+
+        })
+        l.click(function () {
+            let i =$(this).index();
+            if(i>n2){
+                n3++;
+                text1.eq(n2).animate({left:`-291.5px`});
+                text1.eq(n3).css("left","291.5px");
+                text1.eq(n3).animate({left:`0`})
+                l.eq(n2).removeClass("active");
+                l.eq(n3).addClass("active")
+                n2=n3;
+            }else if(i<n2){
+                n3--;
+                text1.eq(n2).animate({left:`291.5px`});
+                text1.eq(n3).css("left","-291.5px");
+                text1.eq(n3).animate({left:`0`});
+                l.eq(n2).removeClass("active");
+                l.eq(n3).addClass("active")
+                n2=n3;
+            }
+
+        })
+    }
+
     //顶部的选项卡
     let top=$(".site-header ul li");
     let ka=$(".site-header ul li .down");
@@ -177,7 +218,7 @@ $(function () {
     function setdate() {
 
         let now=new Date();
-        let feture=new Date(2018,8,16,0,0,0);
+        let feture=new Date(2018,9,1,0,0,0);
         let time=Math.floor((feture.getTime()-now.getTime())/1000);
         // console.log(time);
         // let month=Math.floor(time/(30*24*60*60));
